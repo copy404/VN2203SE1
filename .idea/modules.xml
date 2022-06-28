@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PART01-FILE/PART01-FILE.iml" filepath="$PROJECT_DIR$/PART01-FILE/PART01-FILE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PART02-IO/PART02-IO.iml" filepath="$PROJECT_DIR$/PART02-IO/PART02-IO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PART03-EXCEPTION/PART03-EXCEPTION.iml" filepath="$PROJECT_DIR$/PART03-EXCEPTION/PART03-EXCEPTION.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PART04-SOCKET/PART04-SOCKET.iml" filepath="$PROJECT_DIR$/PART04-SOCKET/PART04-SOCKET.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PART05-THREAD/PART05-THREAD.iml" filepath="$PROJECT_DIR$/PART05-THREAD/PART05-THREAD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VN2203SE.iml" filepath="$PROJECT_DIR$/VN2203SE.iml" />
+    </modules>
+  </component>
+</project>

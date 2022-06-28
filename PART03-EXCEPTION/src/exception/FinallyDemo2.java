@@ -1,0 +1,26 @@
+package exception;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FinallyDemo2 {
+    public static void main(String[] args) {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream("fos.txt");
+            fos.write(1);
+        } catch (IOException e) {
+            System.out.println("出错了！在这里得到了解决");
+        }finally {
+            try {
+                if (fos!=null){
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+}
