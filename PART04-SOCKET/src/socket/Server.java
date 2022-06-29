@@ -46,9 +46,9 @@ public class Server {
             this.socket = socket;
             host = socket.getInetAddress().getHostAddress();
         }
-
         @Override
         public void run() {
+            PrintWriter pw = null;
             try {
                 InputStream in = socket.getInputStream();
                 InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
@@ -56,18 +56,47 @@ public class Server {
                 OutputStream out = socket.getOutputStream();
                 OutputStreamWriter osw = new OutputStreamWriter(out,StandardCharsets.UTF_8);
                 BufferedWriter bw = new BufferedWriter(osw);
-                PrintWriter pw = new PrintWriter(bw,true);
-                allOut = Arrays.copyOf(allOut,allOut.length+1);
-                allOut[allOut.length-1] = pw;
+                pw = new PrintWriter(bw,true);
+                synchronized(Server.this){
+                    allOut[allOut.length-1] = pw;
+                    allOut = Arrays.copyOf(allOut,allOut.length+1);
+                }
+                sendMessage("有新的客户端上线了！当前在线人数："+allOut.length);
                 String line ;
                 while ((line = br.readLine())!=null){
                     System.out.println(host+"客户端说："+line);
-                    for (int i = 0; i < allOut.length; i++) {
-                        allOut[i].println(line);
-                    }
+                    sendMessage(line);
+//                    for (int i = 0; i < allOut.length; i++) {
+//                        allOut[i].println(line);
+//                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }finally {
+                synchronized (Server.this) {
+                    for (int i = 0; i < allOut.length; i++) {
+                        if (allOut[i] == pw) {
+                            allOut[i] = allOut[allOut.length - 1];
+                            allOut = Arrays.copyOf(allOut, allOut.length - 1);
+                            break;
+                        }
+                    }
+                }
+                sendMessage("有新的客户端下线了！当前在线人数："+allOut.length);
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+        private void sendMessage(String msg){
+            synchronized (Server.this){
+                for (int i = 0; i < allOut.length; i++) {
+                    allOut[i].println(msg);
+                }
             }
         }
     }
